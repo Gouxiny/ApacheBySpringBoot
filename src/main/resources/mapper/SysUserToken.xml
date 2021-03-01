@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gxy.dao.SysUserTokenDao">
+
+	<select id="queryById" parameterType="String" resultType="map">
+		select user_id from FTQ_TOKEN where user_id = #{userId}
+	</select>
+	
+	<select id="queryByToken" resultType="SysUserToken">
+		select user_id userId,user_token userToken,update_time updateTime,expire_time expireTime from FTQ_TOKEN where user_token = #{token} 
+	</select>
+	
+	<insert id="save" parameterType="SysUserToken">
+		insert into FTQ_TOKEN (user_id,user_token,update_time,expire_time)
+		values(
+		#{userId,jdbcType=VARCHAR},
+		#{token,jdbcType=VARCHAR},
+		#{updateTime,jdbcType=DATE},
+		#{expireTime,jdbcType=DATE}
+		)
+	</insert>
+	
+	<update id="edit" parameterType="SysUserToken" >
+		update FTQ_TOKEN 
+		set user_token=#{token},
+		update_time=#{updateTime},
+		expire_time=#{expireTime} 
+		where user_id = #{userId}
+	</update>
+
+
+
+
+
+</mapper>
